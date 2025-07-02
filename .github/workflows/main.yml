@@ -1,0 +1,24 @@
+name: Download and Email PDF
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  download-and-mail:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run script
+        env:
+          EMAIL: ${{ secrets.EMAIL }}
+          APP_PASS: ${{ secrets.APP_PASS }}
+        run: python download_and_email.py
